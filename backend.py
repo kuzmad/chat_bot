@@ -16,12 +16,11 @@ from llm import available_models, prompts
 
 settings = SettingsBack()
 
-# 1. Используем TypedDict для состояния
 class ChatState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
 
 trimmer_by_count = trim_messages(
-    max_tokens=settings.max_history_messages,           # Сохранит последние 4 сообщения
+    max_tokens=settings.max_history_messages,           # Сохранит последние max_history_messages сообщений
     strategy="last",
     token_counter=len,      # <-- Считаем каждое сообщение за 1 "токен"
     include_system=True,
